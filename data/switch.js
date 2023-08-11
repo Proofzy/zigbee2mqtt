@@ -233,6 +233,20 @@ const tzLocal = {
             return {};
         },
     },
+    save_eye_set: {
+        key: ['save_eye_set'],
+        convertSet: async (entity, key, value, meta) => {
+            await entity.write('cedar', {save_eye_set: value});
+            return {};
+        },
+    },
+    save_eye_cali: {
+        key:['save_eye_cali'],
+        convertSet: async (entity, key, value, meta) => {
+            await entity.write('cedar', {save_eye_cali: value});
+            return {};
+        }
+    }
 };
 
 const definition = {
@@ -255,6 +269,8 @@ const definition = {
         tzLocal.register_set_32,
         tzLocal.register_set_data,
         tzLocal.slave_id,
+        tzLocal.save_eye_set,
+        tzLocal.save_eye_cali,
     ],
     exposes: [
         e.enum('test', exposes.access.SET, ['Trigger']),

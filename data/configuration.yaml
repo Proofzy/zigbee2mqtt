@@ -1,5 +1,5 @@
 homeassistant: false
-permit_join: false
+permit_join: true
 frontend: true
 mqtt:
   base_topic: zigbee2mqtt
@@ -10,7 +10,7 @@ advanced:
   homeassistant_legacy_entity_attributes: false
   legacy_api: false
   legacy_availability_payload: false
-  log_level: warn
+  log_level: debug
   availability: true
   cache_state: false
   ext_pan_id:
@@ -22,6 +22,17 @@ advanced:
     - 78
     - 5
     - 186
+  log_syslog:
+    app_name: Zigbee2MQTT
+    eol: /n
+    host: localhost
+    localhost: localhost
+    path: /dev/log
+    pid: process.pid
+    port: 514
+    protocol: udp4
+    type: '5424'
+  pan_id: 6754
 external_converters:
   - switch.js
 device_options:
