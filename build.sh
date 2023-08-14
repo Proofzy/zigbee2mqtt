@@ -6,7 +6,7 @@ else
     gittag=$1
 fi
 
-podman build --platform=linux/arm64 -t containerhub.cedar.eaccess.dk/zigbee2mqtt:latest -t containerhub.cedar.eaccess.dk/zigbee2mqtt:${gittag}  -f docker/Dockerfile
+podman build --build-arg COMMIT=$gittag --platform=linux/arm64 -t containerhub.cedar.eaccess.dk/zigbee2mqtt:latest -t containerhub.cedar.eaccess.dk/zigbee2mqtt:${gittag}  -f docker/Dockerfile --target release .
 podman push containerhub.cedar.eaccess.dk/zigbee2mqtt:latest 
 podman push containerhub.cedar.eaccess.dk/zigbee2mqtt:${gittag}
 
