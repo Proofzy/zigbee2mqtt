@@ -105,9 +105,6 @@ const fzLocal = {
                 result['force_single'] = msg.data.force_single;
             }
 
-            console.log("Result <<<<<<<<<<<<<");
-            console.log(result);
-
             return result;
         },
     },
@@ -289,9 +286,6 @@ const definition = {
     // when the device is controlled manually through the button on it.
     configure: async (device, coordinatorEndpoint, logger) => {
         const endpoint = device.getEndpoint(1);
-        // console.log("I GET HERE!: " + coordinatorEndpoint.toString());
-        // await reporting.bind(endpoint, coordinatorEndpoint, ['msOccupancySensing', 'genOnOff']);
-        // await reporting.onOff(endpoint);
     },
 };
 

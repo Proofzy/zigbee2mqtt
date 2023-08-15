@@ -9,6 +9,7 @@ FROM base as dependencies_and_build
 COPY package*.json tsconfig.json index.js ./
 COPY lib ./lib
 
+COPY zigbee-herdsman ./node_modules/zigbee-herdsman
 RUN apk add --no-cache --virtual .buildtools make gcc g++ python3 linux-headers git npm && \
     npm ci --production --no-audit --no-optional --no-update-notifier && \
     # Serialport needs to be rebuild for Alpine https://serialport.io/docs/9.x.x/guide-installation#alpine-linux
@@ -19,6 +20,8 @@ RUN apk add --no-cache --virtual .buildtools make gcc g++ python3 linux-headers 
 FROM base as release
 
 COPY --from=dependencies_and_build /app/node_modules ./node_modules
+COPY zigbee-herdsman ./node_modules/zigbee-herdsman
+
 COPY dist ./dist
 COPY package.json LICENSE index.js data/configuration.yaml ./
 
@@ -26,6 +29,9 @@ COPY docker/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN mkdir /app/data
+
+RUN mkdir /app/external_devices
+COPY data/cedar_device.js /app/external_devices/
 
 ARG COMMIT
 RUN echo "$COMMIT" > dist/.hash

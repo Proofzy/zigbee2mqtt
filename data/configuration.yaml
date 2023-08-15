@@ -5,7 +5,7 @@ mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://localhost
 serial:
-  port: /dev/ttyACM1
+  port: /dev/ttyACM0
 advanced:
   homeassistant_legacy_entity_attributes: false
   legacy_api: false
@@ -34,15 +34,8 @@ advanced:
     type: '5424'
   pan_id: 6754
 external_converters:
-  - switch.js
+  - ../external_devices/cedar_device.js
 device_options:
   legacy: false
-devices:
-  '0x288a40feffca4c40':
-    friendly_name: '0x288a40feffca4c40'
-  '0xac8b40feffca4c40':
-    friendly_name: '0xac8b40feffca4c40'
 ota:
   disable_automatic_update_check: true
-blocklist:
-  - '0x348d40feffca4c40'
