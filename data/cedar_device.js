@@ -124,12 +124,6 @@ const tzLocal = {
             }
         },
     },
-    test: {
-        key: ['test'],
-        convertSet: async (entity, key, value, meta) => {
-
-        },
-    },
     slave_id: {
         key: ['slave_id'],
         convertSet: async (entity, key, value, meta) => {
@@ -230,28 +224,16 @@ const tzLocal = {
             return {};
         },
     },
-    save_eye_set: {
-        key: ['save_eye_set'],
-        convertSet: async (entity, key, value, meta) => {
-            await entity.write('cedar', {save_eye_set: value});
-            return {};
-        },
-    },
-    save_eye_cali: {
-        key:['save_eye_cali'],
-        convertSet: async (entity, key, value, meta) => {
-            await entity.write('cedar', {save_eye_cali: value});
-            return {};
-        }
-    }
 };
 
 const definition = {
-    zigbeeModel: ['ESP32C6TEST'],
-    model: 'ESP32c6',
+    zigbeeModel: ['ESP32C6TEST', "EC6-0"],
+    model: 'EC6-0',
     vendor: 'CEDAR',
-    description: 'My super switch!',
-    fromZigbee: [fzLocal.data_report, fzLocal.modbus],
+    description: 'CEDAR Heatpump Device',
+    fromZigbee: [
+        fzLocal.data_report, 
+        fzLocal.modbus],
     toZigbee: [
         tzLocal.send_data, 
         tzLocal.baudrate, 
@@ -259,18 +241,14 @@ const definition = {
         tzLocal.parity, 
         tzLocal.e_bit,
         tzLocal.force_single, 
-        tzLocal.test,
         tzLocal.subscribe,
         tzLocal.unsubscribe,
         tzLocal.register_set,
         tzLocal.register_set_32,
         tzLocal.register_set_data,
-        tzLocal.slave_id,
-        tzLocal.save_eye_set,
-        tzLocal.save_eye_cali,
+        tzLocal.slave_id
     ],
     exposes: [
-        e.enum('test', exposes.access.SET, ['Trigger']),
         e.numeric('slave_id', exposes.access.ALL),
         e.numeric('baudrate', exposes.access.ALL),
         e.numeric('s_bit', exposes.access.ALL),
@@ -278,9 +256,6 @@ const definition = {
         e.numeric('e_bit', exposes.access.ALL),
         e.binary('force_single', exposes.access.ALL, 1, 0),
         e.enum('send_state', exposes.access.SET, ['NOTIFY', 'DEFINITION']),
-        // e.numeric('subscribe', exposes.access.STATE_SET),
-        // e.numeric('unsubscribe', exposes.access.STATE_SET),
-        // e.numeric('register_set', exposes.access.STATE_SET),
     ],
     // The configure method below is needed to make the device reports on/off state changes
     // when the device is controlled manually through the button on it.
