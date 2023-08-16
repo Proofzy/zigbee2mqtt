@@ -15,7 +15,7 @@ else
 fi
 
 pushd zigbee-herdsman
-git checkout 70a7f69ef5ca76b0a6c16b6e149457360ce6b76c
+git checkout ed3bcd5ccc99c5d66431bba3e2e0d6786884b492
 npm install
 npm run build
 rm -r node_modules
